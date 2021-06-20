@@ -1,35 +1,25 @@
-#include "utilities.h"
-#include <array>
 #include <string>
+#include "utilities.h"
+#include <fstream>
 #include <iostream>
+#include <iomanip>
 
-std::string FixStory(std::string story)
+std::string ReadFile(std::ifstream& inFile)
 {
-    if (story.find("&apos;") == story.npos || story.find("striped shirt") == story.npos)
+    std::string story = " ";
+    getline(inFile, story);
+    int location = 0;
+    while (story.find("&apos;") < story.size())
     {
-        story = "Attempt to fix the string failed";
-        std::cout<<story.find("striped shirt location: ") <<std::endl;
-        return story;
+        location = story.find("&apos;");
+       story.replace(location, 6,"'");
     }
-    else
+    location = (story.find("striped shirt"));
+    while (story.find("striped shirt") > 0 && story.find("striped shirt") < story.size())
     {
-      /*  int stripedShirtCounter = 0;
-        std::array<int, 20> insertPlaces;*/
-        std::cout<<"At least this much"<<std::endl;
-        while (story.find("&apos;") != std::string::npos)
-        {
-            story.replace(story.find("&apos;"), 6, "'");
-        }
-     //   while (story.find("striped shirt") != std::string::npos)
-       // {
-          /*  insertPlaces[0]=story.find("striped shirt");
-            stripedShirtCounter++;*/
-           // story.insert(story.find("striped shirt"), "red");
-        //}
-        /* for (int i = 0; i < stripedShirtCounter; i++)
-        {
-            std::cout<< " " << "next instance of \"striped shirt\"" <<insertPlaces[i] << std::endl;
-        }*/
+        story.insert(location, "red ");
+        location = story.find("striped shirt") + 18;
+       location = story.find(location,story.find("striped shirt"));
     }
     return story;
 }

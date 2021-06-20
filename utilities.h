@@ -2,7 +2,7 @@
 #define UTILITIES_H
 #include <string>
 
-std::string FixStory(std::string story);
+std::string ReadFile(std::ifstream& inFile);
 
 
 #endif
